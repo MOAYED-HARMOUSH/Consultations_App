@@ -17,20 +17,16 @@ return new class extends Migration
             $table->id();
             $table->string('first_name');
             $table->string('last_name');
-            $table->string('img_bath')->nullable();
+            $table->text('img_bath')->nullable();
             $table->string('country');
             $table->string('city');
             $table->string('email')->unique();
             $table->string('password');
             $table->string('gender'); // مؤثتا سترينغ
-            $table->date('birth_date')->nullable(); // مؤقتا
-            $table->string('Specialises')->nullable(); // مؤقتا سترينغ
-            $table->longText('Experience')->nullable();
-            $table->unsignedFloat('min')->nullable();
-            $table->unsignedFloat('max')->nullable();
-            $table->float('rate')->nullable();
-            $table->string('times')->nullable();
-
+            $table->date('birth_date');
+            $table->bigInteger('expert_id')->unsigned()->nullable();
+            //$table->foreignId('expert_id')->nullable()->constrained('expereinces')->cascadeOnDelete()->cascadeOnUpdate();
+$table ->foreign('expert_id')->references('id')->on('expereinces')->onDelete('cascade')->onUpdate('cascade');
             $table->timestamps();
         });
     }

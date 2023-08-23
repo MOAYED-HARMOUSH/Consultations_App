@@ -9,18 +9,19 @@ class Consultations extends Model
 {
     use HasFactory;
     protected $fillable=[
-        'id',
-        'title','content','cost','rate','Specialises','person_notexpert_id'
+
+        'title','content','cost','rate','Specialises','person_id'
         ,'isfinished','person_expert_id',
     ];
-    public function people()
-    {
-        return $this->belongsTo(Person::class);
-    }
+    
 
     public function peopletest()
     {
-        return $this->belongsTo(Person::class,'person_notexpert_id');
+        return $this->belongsTo(Person::class,'person_id');
+    }
+    public function peopletest2()
+    {
+        return $this->belongsTo(expereince::class,'person_expert_id');
     }
     public function reserve()
     {

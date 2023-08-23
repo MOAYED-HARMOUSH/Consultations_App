@@ -3,7 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\Models\Person;
+use App\Models\reserve;
+
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class PersonController extends Controller
 {
@@ -14,7 +17,27 @@ class PersonController extends Controller
      */
     public function index()
     {
-        //
+        return Person::all();
+    }
+    public function indexexpert() // جلب الخبراء
+    {
+        return Person:: whereNotNull('Specialises') ->get();
+
+    }
+    public function indexconst() // البحث عن تصنيف معين
+    {
+        return Person:: where('Specialises','doctor') ->get();
+
+    }
+
+    public function serachexpert($name) // البحث عن ofdc معين
+    {
+        $last= Person:: whereNotNull('Specialises')-> where([['last_name','like','%'.$name.'%']]) ->get();
+        $first= Person:: whereNotNull('Specialises')-> where('first_name','like','%'.$name.'%') ->get();
+
+
+        return [$first,$last];
+
     }
 
     /**
@@ -22,9 +45,9 @@ class PersonController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function all()
     {
-        //
+        return Person::get();
     }
 
     /**
@@ -35,7 +58,16 @@ class PersonController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        {
+
+            // return Person::create($request->all());
+            // return product::create([
+            //     'name'=>'one',
+            //     'slug'=>'one',
+            //     'description '=>'this is one',
+            //     'price'=>99.99,
+            // ] );
+        }
     }
 
     /**
@@ -46,7 +78,9 @@ class PersonController extends Controller
      */
     public function show(Person $person)
     {
-        //
+        $id=Auth::user()->id;
+      return  reserve::where('person_id',$id)->get();
+
     }
 
     /**
@@ -81,5 +115,13 @@ class PersonController extends Controller
     public function destroy(Person $person)
     {
         //
+    }
+
+    public static function expert()
+    {
+        $user=Auth::user();
+        $m=$user->id;
+      return  Person::find($user->id)->update(['expert_id'=>$m]);
+
     }
 }

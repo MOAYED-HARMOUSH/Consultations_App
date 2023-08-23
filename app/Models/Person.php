@@ -16,25 +16,38 @@ class Person extends Authenticatable
         'last_name',
         'password',
         'img_bath',
-        'country', 'city', 'region', 'email',
+        'country', 'city', 'email',
          'password', 'gender', 'birth_date',
           'Specialises', 'Experience',
-           'min', 'max', 'rate', 'id'
+           'min', 'max', 'rate',
+           'expert','expert_id'
     ];
-public function wallet(){
-    return $this->hasOne(wallet::class,'owner_wallet_id');
-}
-public function phones(){
-    return $this->hasMany(phone::class,'owner_phone_id');
-}
-public function Consultation() //for make Consultation from table Consultation >>>not important<<<
-{
-    return $this->hasMany(Consultations::class);
 
-}
-public function Consultation2() //for make  Consultation from table user directly
-{
-    return $this->hasMany(Consultations::class,'person_notexpert_id');
+    public function people()
+    {
+        return $this->belongsTo(expereince::class,'people_expert_id');
+    }
+    public function wallet(){
+        return $this->hasOne(wallet::class);
+    }
+    public function phones(){
+        return $this->hasMany(phone::class,'owner_phone_id');
+    }
+    public function Consultation() //for make Consultation from table Consultation >>>not important<<<
+    {
+        return $this->hasMany(Consultations::class);
 
-}
+    }
+    public function Consultation2()
+    {
+        return $this->hasMany(Consultations::class,'person_id');
+    }
+    public function conversition (){
+        return $this->hasMany(people::class);
+       }
+       public function favoirite_id (){
+        return $this->hasMany(favorite::class);
+       }
+   
+
 }

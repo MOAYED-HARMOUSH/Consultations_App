@@ -2,32 +2,45 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\phone;
+use App\Models\experttime;
 use Illuminate\Http\Request;
-use Laravel\Sanctum\HasApiTokens;
 use Illuminate\Support\Facades\Auth;
 
-class PhoneController extends Controller
-{use HasApiTokens;
+class ExperttimeController extends Controller
+{
     /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function add(Request $request)
     {
-        //
+        $user=Auth::user();
+        $m=$user->id;
+    return  experttime::create([
+        'expert_id'=>$m,
+        'time_const'=>$request->time_const,
+        'date_const'=>$request->date_const,
+
+      ]);
     }
+
 
     /**
      * Show the form for creating a new resource.
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function showdates($id)
     {
-        //
+        $user=Auth::user();
+        $m=$user->id;
+
+
+ return $mmm=experttime::where('expert_id',$id)->get();
+
     }
+    
 
     /**
      * Store a newly created resource in storage.
@@ -35,23 +48,18 @@ class PhoneController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function create_phone(Request $request)
+    public function store(Request $request)
     {
-        $user=Auth::user();
-        return phone::create( ['country_code'=> $request->country_code,
-        'phone'=>$request->phone,
 
-        'owner_phone_id'=> $user->id
-        ]);
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\phone  $phone
+     * @param  \App\Models\experttime  $experttime
      * @return \Illuminate\Http\Response
      */
-    public function show(phone $phone)
+    public function show(experttime $experttime)
     {
         //
     }
@@ -59,10 +67,10 @@ class PhoneController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Models\phone  $phone
+     * @param  \App\Models\experttime  $experttime
      * @return \Illuminate\Http\Response
      */
-    public function edit(phone $phone)
+    public function edit(experttime $experttime)
     {
         //
     }
@@ -71,10 +79,10 @@ class PhoneController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\phone  $phone
+     * @param  \App\Models\experttime  $experttime
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, phone $phone)
+    public function update(Request $request, experttime $experttime)
     {
         //
     }
@@ -82,10 +90,10 @@ class PhoneController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\phone  $phone
+     * @param  \App\Models\experttime  $experttime
      * @return \Illuminate\Http\Response
      */
-    public function destroy(phone $phone)
+    public function destroy(experttime $experttime)
     {
         //
     }

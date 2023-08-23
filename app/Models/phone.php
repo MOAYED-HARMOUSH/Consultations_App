@@ -9,7 +9,7 @@ class phone extends Model
 {
     use HasFactory;
     protected $fillable = [
-        'id',
+
         'country_code',
         'phone',
         'owner_phone_id'];

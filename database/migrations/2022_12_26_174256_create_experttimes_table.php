@@ -3,8 +3,7 @@
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
-
-use function PHPUnit\Framework\once;
+use League\CommonMark\Reference\Reference;
 
 return new class extends Migration
 {
@@ -15,18 +14,12 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('wallets', function (Blueprint $table) {
-
+        Schema::create('experttimes', function (Blueprint $table) {
             $table->id();
-
-            $table->bigInteger('wallet_num')->unique();
-
-
-            $table->string('password');
-            $table->unsignedFloat('wallet_value');
-
-            $table->foreignId('owner_wallet_id')->constrained('people')->cascadeOnDelete()->cascadeOnUpdate();
-
+            $table->unsignedBigInteger('expert_id')->unsigned();
+            $table->foreign('expert_id')->references('id')->on('expereinces')->onDelete('cascade');
+            $table->date('date_const');
+            $table->time('time_const');
             $table->timestamps();
         });
     }
@@ -38,6 +31,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('wallets');
+        Schema::dropIfExists('experttimes');
     }
 };

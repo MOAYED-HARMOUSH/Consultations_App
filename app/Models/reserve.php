@@ -9,8 +9,8 @@ class reserve extends Model
 {
     use HasFactory;
      protected $fillable=[
-        'id','consultations_content','consultation_id','consultations_date','consultations_place'
-        ,'person_notexpert_id'
+        'consultations_content','consultation_id','consultations_date','consultations_place'
+        ,'person_id'
         ,'consultations_period','person_expert_id',
     ];
     public function consultation()

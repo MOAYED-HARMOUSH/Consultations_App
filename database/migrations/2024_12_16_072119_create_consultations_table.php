@@ -17,17 +17,17 @@ return new class extends Migration
             $table->id();
             $table->string('title');
             $table->text('content');
-            $table->double('cost');
-            $table->float('rate');
-            $table->string('Specialises');
+            $table->unsignedDouble('cost');
+            $table->unsignedFloat('rate');
+            $table->string('Specialises');// reviewe
 
-            $table->bigInteger('person_notexpert_id')->unsigned()->nullable();
-            $table->foreign('person_notexpert_id')
-            ->references('id')->on('people')->onDelete('cascade');
+            $table->bigInteger('person_id')->unsigned()->nullable();
+            $table->foreign('person_id')
+            ->references('id')->on('people')->onDelete('cascade')->onUpdate('cascade');
 
             $table->bigInteger('person_expert_id')->unsigned();
             $table->foreign('person_expert_id')
-            ->references('id')->on('people')->onDelete('cascade');
+            ->references('id')->on('expereinces')->onDelete('cascade')->onUpdate('cascade');
 
 
             $table->boolean('isfinished');

@@ -16,10 +16,10 @@ return new class extends Migration
         Schema::create('phones', function (Blueprint $table) {
             $table->increments('id');
             $table->integer('country_code');
-            $table->bigInteger('phone'); // is unique?
+            $table->string('phone')->unique();
             $table->bigInteger('owner_phone_id')->unsigned();
 
-            $table->foreign('owner_phone_id')->references('id')->on('people')->onDelete('cascade');
+            $table->foreign('owner_phone_id')->references('id')->on('people')->onDelete('cascade')->onUpdate('cascade');
             $table->timestamps();
         });
     }

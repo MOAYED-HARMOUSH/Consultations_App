@@ -1,7 +1,8 @@
 <?php
 
 namespace App\Http\Controllers;
-
+use Illuminate\Support\Facades\Auth;
+use App\Models\Consultations;
 use App\Models\reserve;
 use Illuminate\Http\Request;
 
@@ -46,9 +47,28 @@ class ReserveController extends Controller
      */
     public function show(reserve $reserve)
     {
-        //
-    }
+        $id=Auth::user()->id;
+      return  reserve::where('person_expert_id',$id)->get();
 
+    }
+    public function makereserve(Request $request)
+    {$mo=$request->person_expert_id;
+
+        $user=Auth::user();
+
+
+
+        return reserve::create( [
+        'consultations_date'=> $request->consultations_date,
+        'consultations_place'=>$request->consultations_place,
+        'consultations_period'=>$request->consultations_period,
+        'consultations_content'=>$request->consultations_content,
+        'person_id'=> $user->id,
+        'person_expert_id'=>$mo,
+        'consultation_id'=>$request->consultation_id
+
+        ]);
+    }
     /**
      * Show the form for editing the specified resource.
      *

@@ -16,16 +16,16 @@ return new class extends Migration
         Schema::create('reserves', function (Blueprint $table) {
             $table->increments('id');
 
-            $table->bigInteger('person_notexpert_id');
+            $table->bigInteger('person_id');
             $table->bigInteger('person_expert_id');
 
             $table->bigInteger('consultation_id')->unsigned();
             $table->foreign('consultation_id')
             ->references('id')->on('consultations')->onDelete('cascade');
 
-            $table->date('consultations_date')->nullable(); // مؤقتا
+            $table->date('consultations_date');
             $table->string('consultations_place');
-            $table->date('consultations_period')->nullable();//مؤقتا
+            $table->time('consultations_period');
             $table->text('consultations_content');
 
 

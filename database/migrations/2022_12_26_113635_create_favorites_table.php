@@ -4,8 +4,6 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-use function PHPUnit\Framework\once;
-
 return new class extends Migration
 {
     /**
@@ -15,17 +13,11 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('wallets', function (Blueprint $table) {
-
+        Schema::create('favorites', function (Blueprint $table) {
             $table->id();
-
-            $table->bigInteger('wallet_num')->unique();
-
-
-            $table->string('password');
-            $table->unsignedFloat('wallet_value');
-
-            $table->foreignId('owner_wallet_id')->constrained('people')->cascadeOnDelete()->cascadeOnUpdate();
+            $table->foreignId('people_id')->constrained('people')->cascadeOnDelete();
+$table->unsignedBigInteger('people_experience_id')->unsigned();
+$table->foreign('people_experience_id')->references('expert_id')->on('people')->onDelete('cascade');
 
             $table->timestamps();
         });
@@ -38,6 +30,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('wallets');
+        Schema::dropIfExists('favorites');
     }
 };
